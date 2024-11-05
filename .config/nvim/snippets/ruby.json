@@ -1,0 +1,7 @@
+{
+  "Map block": {
+    "prefix": ["map"],
+    "body": ["map do |$1|", "  $0", "end"],
+    "description": "New Ruby map loop."
+  },
+}
