@@ -1,0 +1,89 @@
+[user]
+  name = Harry Venables
+  email = venablesh@yahoo.co.uk
+	signingkey = DBFADEDEFAC87586
+[alias]
+  # basic {{{
+  st = status -sb
+  cl = clone
+  # }}}
+  # tweak defaults {{{
+  diff = diff -w --patience
+  # }}}
+  # checkout {{{
+  co = checkout
+  cb = checkout -b
+  # }}}
+  # add {{{
+  ai = add --interactive
+  aa = add --all
+  # }}}
+  # commit {{{
+  cm = commit
+  cmm = commit -m
+  cf = "!f() { git commit --fixup $(git rev-parse HEAD~${1:-0}); }; f"
+  caa = commit -a --amend -C HEAD
+  # }}}
+  # branches {{{
+  br = !git for-each-ref --sort=-committerdate refs/heads --format='%(HEAD)%(color:bold green)%(committerdate:relative)|%(color:yellow)%(refname:short)|%(color:red)%(upstream:short)|%(color:blue)%(subject)|%(color:magenta)%(authorname)%(color:reset)' --color=always |column -ts'|'
+  branches = for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
+  bd = branch -D
+  rm-br = !"git fetch -p && for branch in $(git branch -vv | grep ': gone]' | awk '{print $1}'); do git branch -D $branch; done"
+  # }}}
+  # fetch {{{
+  ft = fetch
+  # }}}
+  # log {{{
+  hist = !"git hist-specific --all"
+  hist-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) %C(white)%s%C(reset)%C(auto)%d%C(reset)%n''         %C(cyan)%aD%C(reset) %C(green)(%ar)%C(reset) %C(cyan)(committed: %cD)%C(reset)%n''         %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
+  ls = !"f() { git --no-pager log --oneline -n ${1:-10}; }; f"
+  lsa = !"f() { git --no-pager log --oneline -n ${1:-10}; }; f"
+  ls-br = !git --no-pager log master.. --oneline
+  # }}}
+  # rebase {{{
+  rf = "!f() { GIT_SEQUENCE_EDITOR=: git rebase -i HEAD~${1:-2}; }; f"
+  irebase = "!f() { git rebase -i HEAD~${1:-1}; }; f"
+  # }}}
+  # push {{{
+  pf = push --force-with-lease
+  ph = push --set-upstream
+  set-upstream = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
+  # }}}
+  # pull {{{
+  pl = pull
+  # }}}
+  # reset {{{
+  undo = reset --soft HEAD^
+  # }}}
+  # stash {{{
+  stash-all = stash save --include-untracked
+  # }}}
+  # misc {{{
+  gdiff = "!firefox `git config --get remote.origin.url | sed -e 's#git@github.com:\\(.*\\).git#https://github.com/\\1#'`/compare/master..\"$(git rev-parse --abbrev-ref HEAD)\""
+  # }}}
+[core]
+  excludesfile = ~/.gitignore
+[commit]
+  template = ~/.gitmessage
+[init]
+	templatedir = ~/.git_template
+[rebase]
+  autosquash = true
+[pager]
+  branch = false
+  grep = false
+[push]
+  default = current
+[pull]
+  default = current
+[branch]
+  autosetuprebase = always
+[merge]
+  ff = only
+[status]
+  showUntrackedFiles = all
+[mergetool "sourcetree"]
+  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
+[color]
+	ui = true
