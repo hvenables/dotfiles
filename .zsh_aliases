@@ -1,0 +1,67 @@
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+function update(){
+  git fetch origin master:master && git rebase master
+}
+
+function ssh-copy-id() {
+  cat ~/.ssh/id_rsa.pub | ssh $1 "mkdir -p ~/.ssh; cat >> ~/.ssh/authorized_keys";
+}
+
+function mcd() { # creates a directory and places you in it
+  mkdir -p $1
+  cd $1
+}
+function update-master() {
+  if [ $(git rev-parse --abbrev-ref HEAD) = "master" ]
+  then
+    git pull
+  else
+    git fetch origin master:master
+  fi
+  git fetch --all --prune
+}
+
+function start-branch() {
+  git stash save tempforbranch
+  update-master && git checkout master
+  git checkout -b $1
+  if [[ ! -z $(git stash list | grep tempforbranch | grep -oE "(\d+)") ]]
+  then
+    git stash apply stash@$(git stash list | grep tempforbranch | grep -oE "\{(\d+)\}")
+    git stash drop stash@$(git stash list | grep tempforbranch | grep -oE "\{(\d+)\}")
+  fi
+  bundle
+  clear
+}
+
+function finish-branch() {
+  BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+  if [ "${BRANCH}" = "master" ]
+  then
+    echo "ERROR: cannot finish master"
+    return 1
+  fi
+  git push --set-upstream origin "${BRANCH}" && {
+    update-master
+    git checkout master
+    git branch -D "${BRANCH}"
+  }
+}
+
+function opn() {
+  xdg-open $1
+}
+
+# General
+alias make_art='fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1) | lolcat'
+alias loadnvm='. ~/.config/nvm/nvm.sh'
+alias vim=nvim
+alias kubectl='microk8s kubectl'
+alias git='noglob git'
+alias c='coderay '
+alias ll='ls -alF'
+
+# Docker
+alias dc='docker-compose'
