@@ -1,7 +1,7 @@
 [user]
   name = Harry Venables
-  email = venablesh@yahoo.co.uk
-	signingkey = DBFADEDEFAC87586
+  email = hvenables89@gmail.com
+  signingkey = DBFADEDEFAC87586
 [alias]
   # basic {{{
   st = status -sb
