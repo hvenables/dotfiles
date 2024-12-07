@@ -31,6 +31,8 @@ return {
         "graphql",
         "emmet_ls",
         "rust_analyzer",
+        "eslint",
+        "elixirls",
       },
 
       automatic_installation = true

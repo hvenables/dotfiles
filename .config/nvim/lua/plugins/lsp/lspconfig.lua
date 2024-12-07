@@ -35,7 +35,7 @@ return {
         keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
 
         opts.desc = "Show LSP type definitions"
-        keymap.set("n", "gT", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+        keymap.set("n", "gI", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
 
         opts.desc = "See available code actions"
         keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
@@ -65,6 +65,7 @@ return {
 
     -- used to enable autocompletion (assign to every lsp server config)
     local capabilities = cmp_nvim_lsp.default_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
 
     -- Change the Diagnostic symbols in the sign column (gutter)
     -- (not in youtube nvim video)
@@ -137,6 +138,22 @@ return {
               },
             },
           },
+        })
+      end,
+      ["eslint"] = function()
+        lspconfig["eslint"].setup({
+          capabilities = capabilities,
+          on_attach = function(_, bufnr)
+            vim.keymap.set('n', '<leader>cf', function()
+              vim.cmd('EslintFixAll') -- Run ESLint fixes
+            end, { noremap = true, silent = true, buffer = bufnr })
+          end,
+        })
+      end,
+      ["elixirls"] = function()
+        lspconfig["elixirls"].setup({
+          cmd = { vim.fn.stdpath("data") .. "/mason/bin/elixir-ls" },
+          capabilities = capabilities,
         })
       end,
     })

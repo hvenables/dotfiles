@@ -62,6 +62,8 @@ export GPG_TTY=$(tty)
 # For a full list of active aliases, run `alias`.
 export ERL_AFLAGS="-kernel shell_history enabled"
 
+[ -f ~/.zshenv.local ] && source ~/.zshenv.local
+
 source $HOME/.zsh_aliases
 [[ -s "$HOME/.zsh_work_aliases" ]] && source "$HOME/.zsh_work_aliases"
 

@@ -33,6 +33,7 @@ return {
         "javascript",
         "typescript",
         "ruby",
+        "elixir",
         "tsx",
         "yaml",
         "html",
