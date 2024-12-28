@@ -22,9 +22,9 @@ return {
     require("luasnip.loaders.from_vscode").lazy_load()
 
     luasnip.filetype_extend("eruby", { "html" }) -- Have HTML snippets appear for erb files
-    luasnip.filetype_extend("javascript", { "javascriptreact", "html" })
-    luasnip.filetype_extend("javascriptreact", {"html"})
-    luasnip.filetype_extend("typescriptreact", {"html"})
+    luasnip.filetype_extend("javascript", { "javascriptreact", "html", "css"})
+    luasnip.filetype_extend("javascriptreact", {"html", "css"})
+    luasnip.filetype_extend("typescriptreact", {"html", "css"})
 
     cmp.setup({
       completion = {

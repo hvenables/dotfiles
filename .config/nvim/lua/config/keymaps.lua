@@ -4,6 +4,8 @@ keymap.set("n", "<leader>nt", ":tabnew<CR>", { silent = true, desc = "Open a new
 
 keymap.set('i', 'jj', '<esc>:w<CR>', { desc = "Exit insert mode and save" })
 
+keymap.set("n", "<leader>ws", ":StripWhitespace<CR>", { silent = true, desc = "Remove trailing whitespace" })
+
 -- search next/previous -- center in page
 vim.keymap.set('n', 'n', 'nzz')
 vim.keymap.set('n', 'N', 'Nzz')
