@@ -1,5 +1,6 @@
 return {
   "tpope/vim-fugitive",
+  dependencies= { "tpope/vim-rhubarb" },
   config = function()
     local keymap = vim.keymap
 
@@ -13,6 +14,8 @@ return {
     keymap.set('n', '<leader>gm', ':Gmove ', {})
     -- Git blame
     keymap.set('n', '<leader>gb', ':Git blame<CR>', { silent = true })
+    -- Git Browse
+    keymap.set('n', '<leader>br', ':.GBrowse<CR>', { silent = true })
     -- Git checkout
     keymap.set('n', '<leader>go', ':Git checkout ', {})
     -- Git status

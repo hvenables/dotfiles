@@ -19,6 +19,7 @@ return {
 
     local luasnip = require("luasnip")
 
+    require("luasnip.loaders.from_snipmate").lazy_load()
     require("luasnip.loaders.from_vscode").lazy_load()
 
     luasnip.filetype_extend("eruby", { "html" }) -- Have HTML snippets appear for erb files
@@ -65,6 +66,7 @@ return {
       -- sources for autocompletion
       sources = cmp.config.sources({
         { name = "nvim_lsp" }, --
+        { name = "copilot", group_index = 2 },
         { name = "luasnip" }, -- snippets
         { name = "buffer" }, -- text within current buffer
         { name = "path" }, -- file system paths

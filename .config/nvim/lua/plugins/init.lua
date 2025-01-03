@@ -3,4 +3,5 @@ return {
   "christoomey/vim-tmux-navigator",
   "tpope/vim-sleuth",
   "ntpeters/vim-better-whitespace",
+  "zbirenbaum/copilot-cmp",
 }
