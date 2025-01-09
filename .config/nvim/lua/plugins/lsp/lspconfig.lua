@@ -80,6 +80,10 @@ return {
       return sorbet_dir ~= ''
     end
 
+    local function rubocop_binstub()
+      return vim.fn.filereadable('./bin/rubocop') == 1
+    end
+
     mason_lspconfig.setup_handlers({
       -- default handler for installed servers
       function(server_name)
@@ -147,6 +151,18 @@ return {
           cmd = { vim.fn.stdpath("data") .. "/mason/bin/elixir-ls" },
           capabilities = capabilities,
         })
+      end,
+      ["rubocop"] = function()
+        if rubocop_binstub() then
+          lspconfig["rubocop"].setup({
+            cmd = { './bin/rubocop', '--lsp' },
+            capabilities = capabilities,
+          })
+        else
+          lspconfig["rubocop"].setup({
+            capabilities = capabilities,
+          })
+        end
       end,
     })
   end,

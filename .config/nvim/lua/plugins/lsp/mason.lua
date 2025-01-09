@@ -22,6 +22,7 @@ return {
       ensure_installed = {
         "sorbet",
         "ruby_lsp",
+        "rubocop",
         "ts_ls",
         "html",
         "cssls",
